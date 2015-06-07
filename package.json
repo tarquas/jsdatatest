@@ -1,0 +1,16 @@
+{
+  "name": "jsdata-test",
+  "version": "0.1.0",
+  "description": "JSData Test",
+  "main": "server.js",
+  "scripts": {
+    "start": "node --harmony server.js",
+    "test": "gulp test"
+  },
+  "dependencies": {
+    "express": "^4.12.4",
+    "js-data": "^1.8.0",
+    "js-data-http": "^1.2.3",
+    "multer": "^0.1.8"
+  }
+}
