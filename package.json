@@ -11,6 +11,9 @@
     "express": "^4.12.4",
     "js-data": "^1.8.0",
     "js-data-http": "^1.2.3",
-    "multer": "^0.1.8"
+    "multer": "^0.1.8",
+    "node-libs-browser": "^0.5.2",
+    "serve-static": "^1.9.3",
+    "webpack": "^1.9.10"
   }
 }

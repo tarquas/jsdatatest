@@ -1,0 +1,1 @@
+../../bower_components/js-data-http/dist/js-data-http.js
