@@ -1,54 +1,30 @@
-<!doctype><html><head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> JS Data Test </title>
+<!doctype html>
+<html ng-app="todoApp">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.16/angular.min.js"></script>
 
-  <script src="js/js-data.js"></script>
-  <script src="js/js-data-http.js"></script>
-</head><body>
-  <script>
-
-//var JSData = require('js-data');
-//var DSHttpAdapter = require('js-data-http');
-
-// you can also require "js-data" if you're using AMD/CommonJS
-// e.g. var JSData = require('js-data'); var DSHttpAdapter = require('js-data-http');
-var store = new JSData.DS();
-
-// register and use http by default for async operations
-var adapter = new DSHttpAdapter();
-
-adapter.defaults.basePath = "https://td-rest-api.herokuapp.com:443/api/1.0";
-adapter.defaults.httpConfig.headers = {
-  Authorization: 'JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IlZYTWc5SWhsRWhNQU9ZRnMiLCJyZXYiOjAsImV4cCI6IjIwMTUtMDctMDZUMTY6MzQ6MDMrMDA6MDAiLCJkZXYiOiJpVHJhc2gifQ.RemPM9juiFlmdTYUQ2Kbv7DUxdg95_vS2G4brhxRbhE',
-  'X-Company-ID': 'VXMhSIhlEhMAOYFt'
-};
-adapter.defaults.deserialize = function(cfg, res) {
-  var data = res.data;
-  return (data && data.data) || data;
-};
-
-store.registerAdapter('http', adapter, { default: true });
-
-// simplest model definition
-var Task = store.defineResource('tasks', {
-  id: 'string'
-});
-
-//var task;
-//console.log(Task);
-
-// Example CRUD operations with default configuration
-// See http://www.js-data.io/docs/dsfind
-Task.findAll()
-  .then(function (_task) {
-    console.log(_task);
-  })
-  .catch(function(err) {
-    console.log(err);
-  });
-
-//require('express')().listen(12345);
-
-  </script>
-</body></html>
+    <script src="lib/js-data/dist/js-data-debug.js"></script>
+    <script src="lib/js-data-http/dist/js-data-http.js"></script>
+    <script src="lib/js-data-angular/dist/js-data-angular.js"></script>
+    <script src="todo.js"></script>
+    <link rel="stylesheet" href="todo.css">
+</head>
+<body>
+<h2>Todo</h2>
+<div ng-controller="TodoListController as todoList">
+    <span>{{todoList.remaining()}} of {{todoList.todos.length}} remaining</span>
+    [ <a href="" ng-click="todoList.archive()">archive</a> ]
+    <ul class="unstyled">
+        <li ng-repeat="todo in todoList.todos">
+            <input type="checkbox" ng-model="todo.done">
+            <span class="done-{{todo.done}}">{{todo.name}}</span>
+        </li>
+    </ul>
+    <form ng-submit="todoList.addTodo()">
+        <input type="text" ng-model="todoList.todoText"  size="30"
+               placeholder="add new todo here">
+        <input class="btn-primary" type="submit" value="add">
+    </form>
+</div>
+</body>
+</html>
