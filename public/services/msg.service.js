@@ -4,9 +4,8 @@ angular.module('todoApp').service('Msg', function ($rootScope, $location, DS) {
     path: '/api/1.0/socket', transports: ['websocket', 'polling']
   });
 
-  var room = socket.to('all');
-
-  room.on('modify', function(data) {
+  socket.on('modify', function(data) {
+    console.log(data);
     if (data.method) switch(data.method) {
       case 'insert': DS.find(data.collection, data.insert._id); break;
       case 'update':
